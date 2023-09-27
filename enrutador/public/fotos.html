@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería de fotos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .intro-text {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .gallery img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .left-image, .right-image {
+            flex: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="intro-text">
+        <h1>Bienvenido a nuestra galería de fotos</h1>
+        <p>Descubre nuestras increíbles imágenes</p>
+    </div>
+    <div class="gallery">
+        <div class="left-image">
+            <img src="https://www.megaidea.net/wp-content/uploads/2020/03/minions-clipart-3-1024x1024.png" alt="Foto 1">
+        </div>
+        <div class="right-image">
+            <img src="https://wonder-day.com/wp-content/uploads/2020/10/wonder-day-among-us-png-42.png" alt="Foto 2">
+        </div>
+    </div>
+</body>
+</html>

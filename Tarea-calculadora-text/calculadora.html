@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora y Procesador de Texto</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora</h1>
+    </header>
+    <div class="container">
+        <section class="calculator">
+            <h1>Calculadora</h1>
+            <label for="operacion">Operación:</label>
+            <select id="operacion" class="operation-select">
+                <option value="sumar">Sumar</option>
+                <option value="restar">Restar</option>
+                <option value="multiplicar">Multiplicar</option>
+                <option value="dividir">Dividir</option>
+            </select>
+            <input type="number" id="num1" placeholder="Número 1">
+            <input type="number" id="num2" placeholder="Número 2">
+            <button onclick="calcular()">Calcular</button>
+            <p>Resultado: <span id="resultadoCalculadora"></span></p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // codigo para obtener parametros de la url
+        const urlParams = new URLSearchParams(window.location.search);
+        const num1Param = urlParams.get('num1');
+        const num2Param = urlParams.get('num2');
+
+        // codigo para llenar los campos de número si los parámetros están presentes en la URL
+        if (num1Param !== null && num2Param !== null) {
+            document.getElementById('num1').value = num1Param;
+            document.getElementById('num2').value = num2Param;
+        }
+    </script>
+
+    <script>
+        function calcular() {
+            const operacion = document.getElementById('operacion').value;
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+
+            // Realiza una solicitud al servidor para calcular
+            fetch(`/api/calculadora?operacion=${operacion}&num1=${num1}&num2=${num2}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultadoCalculadora').textContent = data.resultado;
+                });
+        }
+
+        function procesarTexto() {
+            const funcion = document.getElementById('funcion').value;
+            const texto = document.getElementById('texto').value;
+
+            // Realiza una solicitud al servidor para procesar el texto
+            fetch(`/api/texto?funcion=${funcion}&texto=${encodeURIComponent(texto)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultadoTexto').textContent = data.resultadoTexto;
+                });
+        }
+    </script>
+</body>
+</html>

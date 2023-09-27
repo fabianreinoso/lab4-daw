@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora y Procesador de Texto</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        section {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        span {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora y Procesador de Texto</h1>
+    </header>
+    <div class="container">
+        <section class="text-processor">
+            <h1>Procesador de Texto</h1>
+            <label for="funcion">Función:</label>
+            <select id="funcion">
+                <option value="dividirPalabras">Dividir Palabras</option>
+                <option value="eliminarEspacios">Eliminar Espacios</option>
+                <option value="capitalizarTexto">Capitalizar Texto</option>
+                <option value="textoEnMinusculas">Texto en Minúsculas</option>
+                <option value="textoEnMayusculas">Texto en Mayúsculas</option>
+                <option value="contarCaracteres">Contar Caracteres</option>
+            </select>
+            <textarea id="texto" placeholder="Texto"></textarea>
+            <button onclick="procesarTexto()">Procesar</button>
+            <p>Resultado: <span id="resultadoTexto"></span></p>
+        </section>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        function procesarTexto() {
+            const funcion = document.getElementById('funcion').value;
+            const texto = document.getElementById('texto').value;
+
+            // Realiza una solicitud al servidor para procesar el texto
+            fetch(`/api/texto?funcion=${funcion}&texto=${encodeURIComponent(texto)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('resultadoTexto').textContent = data.resultadoTexto;
+                });
+        }
+    </script>
+</body>
+</html>
